@@ -96,7 +96,7 @@ if st.session_state.current_page == "Home":
 
     if st.button(
         "➕ Upload an Item",
-        use_container_width=True
+        use_container_width="stretch"
     ):
         go_to("Upload Item")
         st.rerun()
@@ -162,7 +162,7 @@ elif st.session_state.current_page == "Upload Item":
         st.image(
             photo,
             caption="Item Preview",
-            use_container_width=True
+            use_container_width="stretch"
         )
 
     location = st.text_input(
@@ -184,7 +184,7 @@ elif st.session_state.current_page == "Upload Item":
 
     if st.button(
         "🌱 Submit Item",
-        use_container_width=True
+        use_container_width="stretch"
     ):
 
         if not item_name.strip():
@@ -199,7 +199,8 @@ elif st.session_state.current_page == "Upload Item":
                 "condition": condition,
                 "description": description,
                 "location": location,
-                "action": action
+                "action": action,
+                "photo": photo
             }
 
             st.session_state.uploaded_items.append(new_item)
@@ -272,6 +273,10 @@ elif st.session_state.current_page == "Dashboard":
                 st.write(
                     f"**Category:** {item['category']}"
                 )
+                if item.get('photo'):
+                    st.image(item['photo'], caption="Item Photo", use_container_width="stretch")
+                else:
+                    st.write("No photo available.")
 
                 st.write(
                     f"**Condition:** {item['condition']}"
